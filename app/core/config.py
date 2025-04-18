@@ -2,6 +2,7 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
+    API_KEY: str
     MODEL_PATH: str
     CHAT_FORMAT: str
     CONTEXT_SIZE: int = 4096
