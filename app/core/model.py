@@ -35,10 +35,14 @@ async def generate_response(request: ChatRequest):
 
         messages = [{"role": m.role, "content": m.content} for m in request.messages]
 
-        response = model.create_chat_completion(
-            messages=messages,
-            temperature=request.temperature,
-            max_tokens=request.max_tokens,
+        loop = asyncio.get_event_loop()
+        response = await loop.run_in_executor(
+            None,
+            lambda: model.create_chat_completion(
+                messages=messages,
+                temperature=request.temperature,
+                max_tokens=request.max_tokens,
+            ),
         )
 
         return {
